@@ -1,0 +1,140 @@
+﻿
+
+.Audit-main .navbar .nav-item {
+    background-color: #c4f2f9;
+    border-color: #c4f2f9;
+    margin-right:10px;
+    font-weight:500;
+}
+.Audit-main .navbar .nav-link {
+    color: #3b2e5a;
+    padding: .5rem 2rem;
+  
+}
+.Audit-main .navbar .nav-link:hover {
+    color: #3b2e5a;
+    padding: .5rem 2rem;
+    Background-color: #3b2e5a;
+    color:#fff;
+}
+
+.Audit-main .navbar-brand img {
+    width: 80px;
+    height: 80px;
+}
+
+.row {
+    width: 100%;
+    margin: 0 !important;
+}
+
+
+
+.audit-saidvar {
+    background-color: var(--light);
+    /* box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important; */
+    height: 800px;
+    border-top: 1px solid #dcdcdc;
+}
+
+    .audit-saidvar ul{margin:0;padding:0}
+        .audit-saidvar ul li {
+            list-style: none;
+            border-bottom: 1px solid #dcdcdc;
+            color:#000
+        }
+
+  .audit-saidvar ul li a {
+                text-decoration: none;
+                font-size:17px;
+                padding: 20px 20px;
+                position: relative;
+                display: inline-block;
+                color: #000;
+                font-family: sans-serif;
+                font-weight: 700;
+                width:100%;
+            }
+.main-body-emp-info p{
+    margin-bottom:0rem;
+    border-bottom:1px solid #eee;
+    padding:5px 5px;
+    font-size:13px;
+}
+
+.page-breadcrumb .breadcrumb .breadcrumb-item + .breadcrumb-item:before {
+    content: ">>";
+    font-family: themify;
+    color: #ced4da;
+    font-size: 11px;
+    font-weight: bold
+}
+
+.col-3, col-1, col-2, col-4, col-6, col-8, col-9, col-12 {
+    margin: 0;
+    padding: 0
+}
+
+.main-body-emp-info {
+    background: #f8f9fa;
+    padding: 20px 20px
+}
+.emp-info{
+    padding:8px;
+}
+.emp-info img {
+    width: 120px
+}
+.audit-profile-card{
+    width:100%;
+    padding:20px 10px;
+    background-color:aliceblue;
+    text-align:left;
+    font-weight:600;
+    cursor:pointer;
+}
+.audit-profile-card:hover {
+    color:blue;
+}
+.audit-saidvar .active {
+    background-color:#d6d5d5;
+}
+
+.notification-list-titel .progress-bar {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    background-color: var(--dark);
+    transition: width .6s ease;
+}
+.notification-list-titel h4{margin-bottom:5px;font-size:23px;font-weight:700}
+    .notification-list-titel h4 span {
+        font-weight: 800;
+        color:#dc3545;
+        font-size: 30px;
+    }
+.table-bordered thead td, .table-bordered thead th {
+    border-bottom-width: 2px;
+    background-color: #3b2e5a;
+    color: #cec8c8;
+}
+
+.ValidationMessage .alert-success {
+    color: #3c327c;
+    background-color: #3ed491;
+    border-color: #57eaa8;
+    font-size: 17px;
+}
+
+.ValidationMessage .alert-danger {
+    color: #f8f9fa;
+    background-color: #f15a2f;
+    border-color: #ec5d33;
+    font-size: 17px;
+}

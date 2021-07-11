@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewData["Title"] = "AdminProfile";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+<p style="display:none" id="getidname">@User.Identity.Name</p>
+<style>
+    .admin-info {
+        box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+        padding: 20px;
+    }
+
+    .admin-image img {
+        width: 100px;
+        border: 1px solid #fff;
+        background-color: #fff;
+        height: 80px;
+    }
+
+    .admin-image a {
+        text-decoration: none;
+        float: right;
+        border: 1px solid #ccc8c8;
+        padding: 4px 18px;
+    }
+
+        .admin-image a:hover {
+            background-color: #808080;
+            color: #fff;
+        }
+
+    .admin-info p {
+        padding: 15px 5px;
+        border-bottom: 1px solid #ced4da;
+        font-weight: 500;
+        font-size: 14px;
+        margin-bottom: 0px !important;
+    }
+</style>
+
+
+<div class="view-profile" id="AdminProfile">
+    <div class="container pt-5">
+
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="admin-info bg-light ">
+                    <div class="admin-image mb-3">
+                        <img src="~/Client_plugin/img/emp.png" />
+                        <a class="text-dark ml-2" data-toggle="modal" data-target=".edit-profile">Edit Profile</a>
+                        <a class="text-dark" asp-action="ChangePassword">Change Password</a>
+                    </div>
+                    <p>Admin Name :{{AdminprofileList.name}} </p>
+                    <p>First Designation :{{AdminprofileList.firstDesignation}}</p>
+                    <p>Current Designation :{{AdminprofileList.currentDesignation}}</p>
+                    <p>User Type :{{AdminprofileList.userType}} </p>
+                    <p>Joinin gDate: {{AdminprofileList.joiningDate}}</p>
+                    <p>Date of Birth: {{AdminprofileList.dateofBirth}} </p>
+                    <p>Workplace: {{AdminprofileList.workplace}}</p>
+                    <p>Mobile-No: {{AdminprofileList.mobileNo}}</p>
+                    <p>Email: {{AdminprofileList.email}} </p>
+                </div>
+            </div>
+            <div class="col-md-3"></div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Profile Edit -->
+    <div class="modal fade bd-example-modal-lg edit-profile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Admin Name</h5>
+                    <a class="close text-right pr-3 pt-2" data-dismiss="modal" aria-label="Close" style="cursor:pointer;color:red;opacity:1 !important">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Workplace</label>
+                            <input type="text" class="form-control" v-model="editprofile.workplace">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">First Designation</label>
+                            <input type="text" class="form-control" v-model="editprofile.firstDesignation">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Current Designation</label>
+                            <input type="text" class="form-control" v-model="editprofile.currentDesignation">
+                        </div>
+                    </form>
+                </div>
+                <div class="text-left p-3">
+                    <div class="ValidationMessage" v-show="isMassage">
+                        <div class="alert" role="alert" v-bind:class="[ClassStatus]">
+                            {{errorMassage}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-right p-3">
+                    <button type="button" class="btn btn-primary btn-sm" @@click="userprofileUpte()">Update Information</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+@section AdminProfileJs{
+    <script src="~/Vue-Controllers/AdminProfile.js"></script>
+}

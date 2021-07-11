@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewData["Title"] = "Reply";
+    Layout = "~/Views/Shared/Audit/_Audit_Layout.cshtml";
+    var AuditId = ViewBag.Viewid;
+}
+<p style="display:none" id="AuditId">@ViewBag.Viewid</p>
+<p style="display:none" id="AuditEmid">@User.Identity.Name</p>
+
+<div id="AuditReply">
+
+    <div class="page-breadcrumb mb-5 bg-location" style="border-bottom: 1px solid #e6e6e6;padding-bottom:16px">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Dashboard</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"> <a asp-action="Index" asp-controller="AuditDashboard">Audit Dashboard</a>  </li>
+                            <li class="breadcrumb-item active" aria-current="page">Audit Reply</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="employee-info">
+
+        <div class="row">
+            <div class="col-md-1 "></div>
+            <div class="col-md-10 ">
+                <div class="main-body-emp-info">
+                    <p> <span> <b> Para : </b>  {{AuditfillterbyList.para}} </span> </p>
+                    <p> <span> <b> Name : </b>  {{AuditfillterbyList.officialName}} </span> </p>
+                    <p> <span> <b> Emaloyee Id :  </b> {{AuditfillterbyList.employeeId}} </span> </p>
+                    <p> <span> <b> Objection Titel : </b>  {{AuditfillterbyList.title}} </span> </p>
+                    <p class="d-flex w-100"> <span class="w-50"> <b> First Designation : </b>  {{AuditfillterbyList.firstdesignation}} </span>  <span class="w-50"> <b>Current Designation  : </b>  {{AuditfillterbyList.currentdesignation}}</span> </p>
+                    <p class="d-flex w-100"> <span class="w-50"> <b>Date of Birth : </b>  {{AuditfillterbyList.dateofBirth}} </span> <span class="w-50"> <b> Joining Date  : </b> {{AuditfillterbyList.joiningDate}} </span></p>
+                    <p class="d-flex w-100"> <span class="w-50"> <b>Department Name : </b>  {{AuditfillterbyList.departmentName}} </span> <span class="w-50"> <b>Audit Name  : </b>   {{AuditfillterbyList.auditName}} </span></p>
+                    <p class="d-flex w-100"> <span class="w-50"> <b>Project Name : </b>  {{AuditfillterbyList.projectName}} </span> <span class="w-50"> <b>Address  : </b>  {{AuditfillterbyList.divisionName}},  {{AuditfillterbyList.districtName}}, {{AuditfillterbyList.upazilaName}}</span></p>
+                    <p class="d-flex w-100"> <span class="w-50"> <b>Mobile No : </b>  {{AuditfillterbyList.mobileNo}} </span> <span class="w-50"> <b>Email : </b>   {{AuditfillterbyList.email}} </span></p>
+                    <p class="d-flex w-100"> <span class="w-50"> <b>Amount :  </b> {{AuditfillterbyList.firstdesignation}}</span> <span class="w-50"> <b>WorkPlace :  </b>  {{AuditfillterbyList.workplace}}</span></p>
+                    <p class="d-flex w-100"> <span class="w-50"><b>Audit objection create Date  : </b>  {{AuditfillterbyList.auditobjectioncreateDate}}</span> <span class="w-50"><b>Audit objection submissions Date : </b>   {{AuditfillterbyList.auditobjectionsubmissionsDate}}</span></p>
+                    <div class="w-100">
+                        <span class="w-100"> <b>Description : </b>  </span>
+
+                        <small v-html="AuditfillterbyList.description"> </small>
+                    </div>
+                    <p class="d-flex w-100"> <span class="w-100"> <b>Employee Reply :  </b>{{AuditfillterbyList.employeeReply}} </span> </p>
+                    <p class="d-flex w-100">
+                        <span class="w-50"><b> Employee Reply Date :</b>  {{AuditfillterbyList.employeeReplyDate}}</span> <span class="w-50">
+                            <b>Statuse : </b>
+
+                            <span class="text-danger" v-if="AuditfillterbyList.statusProcess==1"> Process </span>
+                            <span class="text-warning" v-if="AuditfillterbyList.statusPending==2"> Pendding </span>
+                            <span class="text-success" v-if="AuditfillterbyList.statusSettled==2"> success </span>
+                        </span>
+                    </p>
+                    <form class="mt-4" v-show="isHide">
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Audit Reply</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="AuditReply.auditFeetback"></textarea>
+                        </div>
+
+                        <div class="mt-3 d-flex ">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" :value="2" v-model="AuditReply.statusPending">
+                                <label class="form-check-label text-warning" for="exampleRadios1">
+                                    Can You  Objection Panding ?
+                                </label>
+                            </div>
+                            <div class="form-check ml-4 mb-4">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" :value="3" v-model="AuditReply.statusSettled">
+                                <label class="form-check-label text-success" for="exampleRadios2">
+                                    Can You  Objection Settled ?
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary" @@click="ReplayAuditPost">Submit</button>
+
+
+
+
+
+                    </form>
+                    <div class="ValidationMessage" v-show="isMassage">
+                        <div class="alert" role="alert" v-bind:class="[ClassStatus]">
+                            {{ReplyMessage}}
+                        </div>
+                </div>
+
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+    </div>
+
+
+
+</div>
+@section CommentReplyjs{
+    <script src="~/Audit/Vue-controller/AuditReply.js"></script>
+}

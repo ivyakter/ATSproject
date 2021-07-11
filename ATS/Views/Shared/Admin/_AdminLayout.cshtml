@@ -1,0 +1,74 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    @*<script src="~/ckeditor.js"></script>*@
+    <link href="~/admin_plugin/dist/css/icons/themify-icons/themify-icons.css" rel="stylesheet" />
+    <link href="~/admin_plugin/dist/css/icons/material-design-iconic-font/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="~/admin_plugin/css/style.min.css" rel="stylesheet" />
+
+    <link href="~/admin_plugin/css/ATS.css" rel="stylesheet" />
+    <script src="~/admin_plugin/js/Vue-js.js"></script>
+    <script src="~/admin_plugin/js/axios.js"></script>
+
+
+</head>
+<body>
+    <div id="main-wrapper">
+
+        <!-- Navbar -->
+        <partial name="~/Views/Shared/Admin/Navbar.cshtml" />
+        <!-- /.navbar -->
+        <!-- Sidebar-->
+        <aside class="left-sidebar" data-sidebarbg="skin5">
+            <partial name="~/Views/Shared/Admin/Sidebar.cshtml" />
+        </aside>
+        <!-- Sidebar-->
+        <div class="page-wrapper">
+
+
+
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
+            <partial name="~/Views/Shared/Admin/Footer.cshtml" />
+        </div>
+
+    </div>
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    <script src="~/admin_plugin/js/jquery/dist/jquery.min.js"></script>
+    <script src="~/admin_plugin/js/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/admin_plugin/js/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/admin_plugin/js/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    @*<script src="~/admin_plugin/js/sparkline/sparkline.js"></script>
+        <script src="~/admin_plugin/dist/js/waves.js"></script*@>
+    <script src="~/admin_plugin/dist/js/sidebarmenu.js"></script>
+    <script src="~/admin_plugin/dist/js/custom.min.js"></script>
+    @RenderSection("createobjectionJs", required: false)
+    @RenderSection("Departmentjs", required: false)
+    @RenderSection("Projectjs", required: false)
+    @RenderSection("AuditJs", required: false)
+    @RenderSection("Divisionjs", required: false)
+    @RenderSection("Districtjs", required: false)
+    @RenderSection("modyfiJs", required: false)
+
+    @RenderSection("objectionlistJs", required: false)
+    @RenderSection("objectioneDITJs", required: false)
+    @RenderSection("objectionviewjs", required: false)
+    @RenderSection("osofwjs", required: false)
+    @RenderSection("AdminAuthorigationjs", required: false)
+    @RenderSection("AdminProfileJs", required: false)
+</body>
+</html>

@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="icon" type="image/png" href="~/Client_plugin/img/Ats-2.png" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link href="~/Client_plugin/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Audit/AuditAdmin.css" rel="stylesheet" />
+    <script src="~/Client_plugin/js/Vue-js.js"></script>
+    <script src="~/Client_plugin/js/axios.js"></script>
+    <title>
+        ATS
+    </title>
+</head>
+
+<body>
+    <p style="display:none" id="AuditnameId">@User.Identity.Name</p>
+    <div class="Audit-main">
+        <partial name="~/Views/Shared/Audit/AuditNave.cshtml" />
+        <div class="row">
+            <div class="col-md-3" id="AuditLayout">
+                <div class="audit-saidvar">
+                    <ul>
+
+                        <li class="li">
+                            <a class="text-info" v-if="CategoryNamelist.auditName!=null">{{CategoryNamelist.departmentName}} - {{CategoryNamelist.auditName}} </a>
+                            <a class="text-info" v-if="CategoryNamelist.departmentName==null">{{ErrorMeassOne}} - {{ErrorMeassOne}}</a>
+                        </li>
+                        <li class="li">
+                            <a asp-controller="AuditDashboard" asp-action="Index">Notification  <span class="badge badge-secondary ml-3">{{notification}}</span> </a>
+                        </li>
+
+
+                        @*<li class="li">
+                                <a asp-controller="AuditDashboard" asp-action="AllSubmission">All Submission  <span class="badge badge-secondary ml-3">{{Allsubmitioncount}}</span> </a>
+                            </li>*@
+
+                        <li class="li">
+                            <a asp-action="Feedback" asp-controller="AuditDashboard">All  FeedBack <span class="badge badge-secondary ml-3">{{AllFeedbackCount}}</span> </a>
+                        </li>
+
+
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="col-md-9">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="~/Client_plugin/js/Slim.js"></script>
+    <script src="~/Client_plugin/js/popper.min.js"></script>
+    <script src="~/Client_plugin/js/bootstrap.min.js"></script>
+    <script src="~/Client_plugin/js/jQuery.js"></script>
+    <script src="~/Client_plugin/js/jqurycustom.js"></script>
+    <script src="~/Audit/Vue-controller/AuditLayout.js"></script>
+    @RenderSection("AuditHomejs", required: false)
+    @RenderSection("CommentReplyjs", required: false)
+    @RenderSection("Feedbackjs", required: false)
+    @RenderSection("FeedbackViewjs", required: false)
+    @RenderSection("Profilejs", required: false)
+</body>
+</html>

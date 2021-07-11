@@ -1,0 +1,67 @@
+﻿.page-breadcrumb {
+    padding: 20px 20px 20px 20px;
+}
+.bg-location {
+    background-color: #f8f9fa !important;
+}
+.sidebar-nav ul .sidebar-item .first-level .sidebar-item.active .sidebar-link {
+    opacity: 1;
+    color: #ffb848
+}
+.form-control:disabled, .form-control[readonly] {
+    background-color: #ffffff;
+    opacity: 1;
+}
+.form .form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #4F5467;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #c0c6cc;
+}
+.objation-create {
+    background-color: #212529;
+    padding: 10px 5px;
+}
+    .objation-create .title-of-objection span {
+        font-size: 19px;
+        letter-spacing: 2px;
+        color: #dee2e6;
+    }
+
+
+.ValidationMessage .alert-success {
+color: #3c327c;
+background-color: #3ed491;
+border-color: #57eaa8;
+font-size:17px;
+}
+
+.ValidationMessage .alert-danger {
+    color: #f8f9fa;
+    background-color: #f15a2f;
+    border-color: #ec5d33;
+    font-size: 17px;
+}
+
+.ster {
+    font-size: 15px;
+    position: relative;
+    font-weight: 900;
+ font-family: sans-serif;
+}
+
+.view-user .view-user-info ul{margin:0;padding:0;}
+.view-user .view-user-info li {
+    list-style: none;
+    padding: 7px 0px;
+    border-bottom: 1px solid #e4ebef;
+}
+
+.view-user .view-user-info li:last-child {
+    border-bottom: none !important;
+}

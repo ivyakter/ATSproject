@@ -1,0 +1,409 @@
+﻿
+@{
+    ViewData["Title"] = "CreateObjection";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+
+
+<style>
+    .text-danger .form-control {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+<div id="objectionCREATE">
+    <div class="page-breadcrumb mb-5 bg-location">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Dashboard</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard">Dashboard</a>  </li>
+                            <li class="breadcrumb-item active" aria-current="page">Objection Create</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row m-1">
+        <div class="objation-create  w-100">
+            <div class="title-of-objection">
+                <span> Employee Information </span>
+            </div>
+        </div>
+    </div>
+
+
+    <form class="form mt-4 mb-5">
+
+        <div class="row">
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-bind:class="[ClassOfficialName]">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Official Name </label> <span class="ster"> * </span>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" v-model="Objection.officialName" v-on:Change="OfficialNameTextBoxOnChange()" @@keyup="OfficialNameTextBoxKeyup()">
+                    <span style="color:#ff0000">{{messageOfficialName}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-bind:class="[ClassEmployeeID]">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> Employee ID </label> <span class="ster"> * </span>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" v-model="Objection.employeeId" v-on:Change="EmployeeIDTextBoxOnChange()" @@keyup="EmployeeIDTextBoxKeyup()">
+                    <span style="color:#ff0000">{{messageEmployeeID}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-bind:class="[ClassDateofBirth]">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> Date of Birth  </label> <span class="ster"> * </span>
+                    <input type="date" class="form-control" aria-describedby="emailHelp" v-model="Objection.dateofBirth" v-on:Change="DateofBirthTextBoxOnChange()" @@keyup="DateofBirthTextBoxKeyup()">
+                    <span style="color:#ff0000">{{messageDateofBirth}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> Joining Date </label>
+                    <input type="date" class="form-control" aria-describedby="emailHelp" v-model="Objection.joiningDate">
+                </div>
+            </div>
+
+
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> First Designation </label>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" v-model="Objection.firstdesignation">
+                </div>
+            </div>
+
+
+
+
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> Current Designation </label>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" v-model="Objection.currentdesignation">
+                </div>
+            </div>
+
+
+
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-bind:class="[ClassMobileNo]">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Mobile-No </label> <span class="ster"> * </span>
+                    <input type="number" class="form-control" v-model="Objection.mobileNo" v-on:Change="MobileTextBoxOnChange()" @@keyup="MobileTextBoxKeyup()">
+                    <span style="color:#ff0000">{{messageMobileNo}}</span>
+                </div>
+            </div>
+
+
+            <div class="col-lg- 3 col-md-4 col-sm-6 col-12" v-bind:class="[ClassEmail]">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> Email </label> <span class="ster"> * </span>
+                    <input type="email" class="form-control" v-model="Objection.email" v-on:Change="EmailTextBoxOnChange()" @@keyup="EmailTextBoxKeyup()">
+                    <span style="color:#ff0000">{{messageEmail}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> Workplace  </label>
+                    <input type="text" class="form-control" v-model="Objection.workplace">
+                </div>
+            </div>
+        </div>
+
+
+
+        @*<button type="button" class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-info">Update</button>*@
+    </form>
+
+
+
+    <div class="row m-1">
+        <div class="objation-create  w-100">
+            <div class="title-of-objection">
+                <span> Objection Information</span>
+            </div>
+        </div>
+    </div>
+
+
+    <form class="form mt-4 mb-5">
+
+        <div class="row">
+
+
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-bind:class="[ClassDepartment]">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2"> Department  </label> <span class="ster"> * </span>
+                    <select class="form-control" v-model="Objection.departmentId" v-on:change="GetDeparmentData(Objection.departmentId)">
+                        <option value="0">Select Department </option>
+                        <option v-for="data in DepartmentList" :key="data.id" :value="data.id">{{data.name}}</option>
+                    </select>
+                    <span style="color:#ff0000">{{messageDepartment}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-bind:class="[ClassAudit]">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2"> Audit </label> <span class="ster"> * </span>
+                    <select class="form-control" v-model="Objection.auditId" v-on:change="AuditOnChange()">
+                        <option value="0">Select Audit </option>
+                        <option v-for="Audit in fillterAuditList" :key="Audit.id" :value="Audit.id">{{Audit.name}}</option>
+                    </select>
+                    <span style="color:#ff0000">{{messageAudit}}</span>
+                </div>
+
+            </div>
+
+
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-bind:class="[ClassProject]">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2"> Project</label> <span class="ster"> * </span>
+                    <select class="form-control" v-model="Objection.projectId" v-on:change="ProjectOnChange()">
+                        <option value="0">Select Project </option>
+                        <option v-for="project in PeojecttList" :key="project.id" :value="project.id">{{project.name}}</option>
+                    </select>
+                    <span style="color:#ff0000">{{messageProject}}</span>
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-bind:class="[ClassParagraph]">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Paragraph </label> <span class="ster"> * </span>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" v-model="Objection.para" v-on:Change="ParagraphTextBoxOnChange()" @@keyup="ParagraphTextBoxKeyup()">
+                    <span style="color:#ff0000">{{messageParagraph}}</span>
+                </div>
+            </div>
+
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12" v-bind:class="[ClassTitleofObjection]">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> Title of Objection </label> <span class="ster"> * </span>
+                    <input type="text" class="form-control" aria-describedby="emailHelp" v-model="Objection.title" v-on:Change="TitleofObjectionTextBoxOnChange()" @@keyup="TitleofObjectionTextBoxKeyup()">
+                    <span style="color:#ff0000">{{messageTitleofObjection}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-bind:class="[ClassObjectionforAmount]">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Objection for  Amount  </label> <span class="ster"> * </span>
+                    <input type="number" class="form-control" aria-describedby="emailHelp" v-model.number="Objection.amount" v-on:Change="ObjectionforAmountTextBoxOnChange()" @@keyup="ObjectionforAmountTextBoxKeyup()">
+                    <span style="color:#ff0000">{{messageObjectionforAmount}}</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12" v-bind:class="[ClassObjectionType]">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2"> Objection Type </label> <span class="ster"> * </span>
+                    <select class="form-control" v-model="Objection.objectionType" v-on:change="ObjectionTypeOnChange()">
+                        <option value="0">Select Objection Type </option>
+                        <option value="Advance">Advance</option>
+                        <option value="General">General</option>
+                    </select>
+                    <span style="color:#ff0000">{{messageObjectionType}}</span>
+                </div>
+
+            </div>
+
+            @*<div class="col-lg-3 col-md-4 col-sm-6 col-12">
+            <div class="form-group">
+                <label for="exampleFormControlSelect2"> Years </label>
+                <select class="form-control" id="exampleFormControlSelect2">
+                    <option>Select Years </option>
+                    <option>2020</option>
+                    <option>2019</option>
+                    <option>2018</option>
+                    <option>2017</option>
+                </select>
+            </div>
+
+        </div>*@
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> Year  </label>
+                    <input type="text" class="form-control" v-model="Objection.years">
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> Audit Objection Create Date </label>
+                    <input type="date" class="form-control" aria-describedby="emailHelp" v-model="Objection.auditobjectioncreateDate">
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="exampleInputEmail1"> Audit Objection Submission Date </label>
+                    <input type="date" class="form-control" aria-describedby="emailHelp" v-model="Objection.auditobjectionsubmissionsDate">
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2"> Division </label>
+                    <select class="form-control" v-model="Objection.divisionId" v-on:change="DistrictFillterData(Objection.divisionId)">
+                        <option value="0">Select Division </option>
+
+                        <option v-for="Division in DivisionList" :key="Division.id" :value="Division.id"> {{Division.name}} - {{Division.banglaName}}</option>
+
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2"> District  </label>
+                    <select class="form-control" v-model="Objection.districtId" v-on:change="UpazilaFillterData(Objection.districtId)">
+                        <option value="0">Select District </option>
+                        <option v-for="District in DistrictFilltetList" :key="District.id" :value="District.id"> {{District.name}} -{{District.banglaName}}</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2"> Upazila   </label>
+                    <select class="form-control" v-model="Objection.upazilaId">
+                        <option value="0">Select Upazila</option>
+                        <option v-for="Upzila in UpzilaFilltetList" :key="Upzila.id" :value="Upzila.id">{{Upzila.name}}</option>
+
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-10 col-md-12 col-sm-12 col-12">
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Descriptions for Objection</label>
+
+                    <ckeditor v-model="Objection.description"></ckeditor>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row mt-4 mb-4">
+            <div class="col-12 text-center">
+                <button type="button" class="btn btn-success" @@click="Createobjection"> Save </button>
+
+            </div>
+        </div>
+
+        <div class="ValidationMessage" v-show="isMassagecreateobjection">
+                <div v-bind:class="[ClassStatusobjection]">
+                    {{errorMassagecreateobjection}}
+                </div>
+            </div>
+
+
+    </form>
+
+</div>
+
+
+
+
+
+
+
+@section createobjectionJs{
+    <script>
+        Vue.component('ckeditor', {
+            template: `<div class="ckeditor"><textarea :id="id" :value="value"></textarea></div>`,
+            props: {
+                value: {
+                    type: String
+                },
+                id: {
+                    type: String,
+                    default: 'editor'
+                },
+                height: {
+                    type: String,
+                    default: '300px',
+                },
+                toolbar: {
+                    type: Array,
+                    default: () => [
+
+                        ['Bold', 'Italic', 'Strike'],
+                        ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl', 'Language'],
+                        ['Cut', 'Copy', 'Paste'],
+                        ['Styles', 'Format', 'Font', 'FontSize'],
+                        ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+
+
+                    ]
+                },
+
+                language: {
+                    type: String,
+                    default: 'en'
+                },
+                extraplugins: {
+                    type: String,
+                    default: ''
+                }
+            },
+            beforeUpdate() {
+                const ckeditorId = this.id
+                if (this.value !== CKEDITOR.instances[ckeditorId].getData()) {
+                    CKEDITOR.instances[ckeditorId].setData(this.value)
+                }
+            },
+            mounted() {
+                const ckeditorId = this.id
+                console.log(this.value)
+                const ckeditorConfig = {
+                    toolbar: this.toolbar,
+                    language: this.language,
+                    height: this.height,
+                    extraPlugins: this.extraplugins,
+                    removePlugins: 'elementspath',
+                    resize_enabled: false
+                }
+
+                CKEDITOR.replace(ckeditorId, ckeditorConfig)
+                CKEDITOR.instances[ckeditorId].setData(this.value)
+                CKEDITOR.instances[ckeditorId].on('change', () => {
+                    let ckeditorData = CKEDITOR.instances[ckeditorId].getData()
+                    if (ckeditorData !== this.value) {
+                        this.$emit('input', ckeditorData)
+                    }
+                })
+            },
+            destroyed() {
+                const ckeditorId = this.id
+                if (CKEDITOR.instances[ckeditorId]) {
+                    CKEDITOR.instances[ckeditorId].destroy()
+                }
+            }
+
+        });
+
+    </script>
+    <script src="~/Vue-Controllers/Objection.js"></script>
+}

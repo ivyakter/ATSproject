@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewData["Title"] = "ViewFeedback";
+    Layout = "~/Views/Shared/Audit/_Audit_Layout.cshtml";
+    var getId = ViewBag.ViewFeedbackId;
+}
+<p style="display:none" id="getId">@ViewBag.ViewFeedbackId</p>
+<p style="display:none" id="AuditEmid">@User.Identity.Name</p>
+<div class="employee-info mt-5" id="FeedbackView">
+
+    <div class="row">
+        <div class="col-md-1 "></div>
+        <div class="col-md-10 ">
+            <div class="main-body-emp-info">
+                <p> <span> <b> Para : </b>  {{FeedbackViewList.para}} </span> </p>
+                <p> <span> <b> Name : </b>  {{FeedbackViewList.officialName}} </span> </p>
+                <p> <span> <b> Emaloyee Id :  </b> {{FeedbackViewList.employeeId}} </span> </p>
+                <p> <span> <b> Objection Titel : </b>  {{FeedbackViewList.title}} </span> </p>
+                <p class="d-flex w-100"> <span class="w-50"> <b> First Designation : </b>  {{FeedbackViewList.firstdesignation}} </span>  <span class="w-50"> <b>Current Designation  : </b>  {{FeedbackViewList.currentdesignation}}</span> </p>
+                <p class="d-flex w-100"> <span class="w-50"> <b>Date of Birth : </b>  {{FeedbackViewList.dateofBirth}} </span> <span class="w-50"> <b> Joining Date  : </b> {{FeedbackViewList.joiningDate}} </span></p>
+                <p class="d-flex w-100"> <span class="w-50"> <b>Department Name : </b>  {{FeedbackViewList.departmentName}} </span> <span class="w-50"> <b>Audit Name  : </b>   {{FeedbackViewList.auditName}} </span></p>
+                <p class="d-flex w-100"> <span class="w-50"> <b>Project Name : </b>  {{FeedbackViewList.projectName}} </span> <span class="w-50"> <b>Address  : </b>  {{FeedbackViewList.divisionName}},  {{FeedbackViewList.districtName}}, {{FeedbackViewList.upazilaName}}</span></p>
+                <p class="d-flex w-100"> <span class="w-50"> <b>Mobile No : </b>  {{FeedbackViewList.mobileNo}} </span> <span class="w-50"> <b>Email : </b>   {{FeedbackViewList.email}} </span></p>
+                <p class="d-flex w-100"> <span class="w-50"> <b>Amount :  </b> {{FeedbackViewList.firstdesignation}}</span> <span class="w-50"> <b>WorkPlace :  </b>  {{FeedbackViewList.workplace}}</span></p>
+                <p class="d-flex w-100"> <span class="w-50"><b>Audit objection create Date  : </b>  {{FeedbackViewList.auditobjectioncreateDate}}</span> <span class="w-50"><b>Audit objection submissions Date : </b>   {{FeedbackViewList.auditobjectionsubmissionsDate}}</span></p>
+                <div class="w-100">
+                    <span class="w-100"> <b>Description : </b>  </span>
+
+                    <small v-html="FeedbackViewList.description"> </small>
+                </div>
+                <p class="d-flex w-100"> <span class="w-100"> <b>Employee Reply :  </b>{{FeedbackViewList.employeeReply}} </span> </p>
+                <p class="d-flex w-100">
+                    <span class="w-50"><b> Employee Reply Date :</b>  {{FeedbackViewList.employeeReplyDate}}</span> <span class="w-50">
+                        <b>Statuse : </b>
+
+                        <span class="text-danger" v-if="FeedbackViewList.statusProcess==1"> Process </span>
+                        <span class="text-warning" v-if="FeedbackViewList.statusPending==2"> Pendding </span>
+                        <span class="text-success" v-if="FeedbackViewList.statusSettled==3"> success </span>
+                    </span>
+                </p>
+                <p class="d-flex w-100"> <span class="w-50"> <b>Audit Feedback Person Name:  </b>{{FeedbackViewList.userName}} </span>   <span class="w-50"> <b>Audit Feedback Date:  </b>{{FeedbackViewList.auditFeetbackDate}} </span></p>
+                <p class="d-flex w-100"> <span class="w-100"> <b>Audit Feedback  :  </b>{{FeedbackViewList.auditFeetback}} </span> </p>
+
+            </div>
+
+
+
+            <form class="mt-4" v-show="isHide">
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Audit Reply</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="ReAuditReply.reauditFeetback"></textarea>
+                </div>
+
+                <div class="mt-3 d-flex ">
+                    <div class="form-check ml-4 mb-4">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" :value="3" v-model="ReAuditReply.statusSettled">
+                        <label class="form-check-label text-success" for="exampleRadios2">
+                            Objection Settled 
+                        </label>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary" @@click="ReplayAuditPost">Submit</button>
+
+
+
+
+
+            </form>
+            <div class="ValidationMessage" v-show="isMassage">
+                <div class="alert" role="alert" v-bind:class="[ClassStatus]">
+                    {{ReplyMessage}}
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-1"></div>
+    </div>
+</div>
+@section FeedbackViewjs{
+    <script src="~/Audit/Vue-controller/FeedBackView.js"></script>
+ }

@@ -1,0 +1,120 @@
+﻿@model ReflectionIT.Mvc.Paging.PagingList<ATS.Data.Models.Objection>
+@using ReflectionIT.Mvc.Paging
+@addTagHelper*,ReflectionIT.Mvc.Paging
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+<style>
+    nav .pagination {
+        -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+        justify-content: center !important;
+    }
+
+        nav .pagination li a {
+            text-align: center;
+            padding: 5px 17px;
+            border-left: 1px solid #d2cfcf;
+            border-top: 1px solid #d2cfcf;
+            border-bottom: 1px solid #d2cfcf;
+        }
+
+        nav .pagination .active a {
+            background-color: #14a968;
+            color: #e4e8e7;
+            border: 1px solid #14a968;
+        }
+        nav .pagination  a:hover {
+            background-color: #14a968;
+            color: #e4e8e7;
+            border: 1px solid #14a968;
+        }
+        nav .pagination li:last-child {
+            border-right: 1px solid #d2cfcf;
+        }
+</style>
+
+<div class="page-breadcrumb mb-5 bg-location">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Dashboard</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Objection List</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" id="objectionlist">
+    <table class="table table-bordered table-sm">
+        <thead>
+            <tr>
+                <th>Sl</th>
+                <th>Employee Name</th>
+                <th>Employee Id </th>
+                <th>Objection Type </th>
+                <th>Mobile-No </th>
+                <th>Title </th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            @{int i = 1;}
+            @foreach (var data in Model)
+            {
+                <tr>
+                    <th>
+                        <span> @i</span>
+                        @{i++;
+                        }
+                    </th>
+                    <td>@data.officialName</td>
+                    <td>@data.employeeId</td>
+                    <td>@data.objectionType</td>
+                    <td>@data.mobileNo</td>
+                    <td>@data.title</td>
+                    <td>@data.amount Tk</td>
+                    <td>
+                        <button type="button" class="btn btn-warning btn-sm" @@click="Edit(@data.id)">Edit</button>
+                        <button type="button" class="btn btn-success btn-sm" @@click="view(@data.id)">View</button>
+                    </td>
+                </tr>
+            }
+            @*<tr v-for="(data, index) in ObjectionList">
+            <th>{{index+1}}</th>
+            <td>{{data.officialName}}</td>
+            <td> {{data.departmentName}} </td>
+            <td> {{data.auditName}}</td>
+            <td> {{data.projectName}} </td>
+            <td> {{data.mobileNo}}</td>
+            <td>{{data.title}}</td>
+            <td>
+                <button type="button" class="btn btn-danger btn-sm" @@click="Delete(data.name, data.id)">Delete</button>
+                <button type="button" class="btn btn-warning btn-sm" @@click="Edit(data.id)">Edit</button>
+                <button type="button" class="btn btn-success btn-sm" @@click="view(data.id)">View</button>
+            </td>
+        </tr>*@
+        </tbody>
+    </table>
+</div>
+
+<div class="">
+    <nav aria-label="Pagignation">
+        <vc:pager paging-list="@Model"></vc:pager>
+    </nav>
+</div>
+
+@section objectionlistJs{
+
+    <script src="~/Vue-Controllers/objectionList.js"></script>
+}

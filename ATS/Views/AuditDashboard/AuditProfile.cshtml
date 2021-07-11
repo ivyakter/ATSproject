@@ -1,0 +1,171 @@
+﻿
+@{
+    ViewData["Title"] = "AuditProfile";
+    Layout = "~/Views/Shared/Audit/_Audit_Layout.cshtml";
+}
+<p style="display:none" id="profileId">@User.Identity.Name</p>
+
+
+
+<div class="page-breadcrumb mb-5 bg-location" style="border-bottom: 1px solid #e6e6e6;
+padding-bottom:16px">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h4 class="page-title">Dashboard</h4>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"> <a asp-action="Index" asp-controller="AuditDashboard">Audit Dashboard </a>  </li>
+                        <li class="breadcrumb-item active" aria-current="page">Audit Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="audit-profile" id="Profile">
+    <div class="row">
+        <div class="col-md-5">
+
+            <div class="emp-info bg-light ">
+                <div class="emp-image mb-3">
+                    <img src="~/admin_plugin/images/22495.png" />
+                </div>
+                <p>Employee Name : {{Profilelist.name}} </p>
+                <p>Designatio: {{Profilelist.currentDesignation}} </p>
+                <p>Date of Birth: {{Profilelist.dateofBirth}} </p>
+                <p>Workplace:{{Profilelist.workplace}} </p>
+                <p>Mobile-No: {{Profilelist.mobileNo}}  </p>
+                <p>Email: {{Profilelist.email}}  </p>
+
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-4">
+            <div class="row">
+
+                <div class="col-sm-12 mb-3">
+                    <div class="audit-profile-card">
+                        <a data-toggle="modal" data-target=".bd-example-modal-xl">  <i class="fas fa-comments"></i> Total FeedBack ({{countObjection}})</a>
+                    </div>
+                </div>
+
+                <div class="col-sm-12  mb-3">
+                    <div class="audit-profile-card">
+                        <a @@click="eidtprofile(Profilelist.id)" data-toggle="modal" data-target=".bd-example-modal-lg"> <i class="fas fa-edit"></i> Edit Profile</a>
+                    </div>
+                </div>
+
+                <div class="col-sm-12  mb-3">
+                    <div class="audit-profile-card">
+                        <a asp-action="ChangePassword" asp-controller="AuditDashboard"> <i class="fas fa-key"></i> Change Password</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Feedback List</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered table-sm ">
+                        <thead>
+                            <tr>
+                                <th>Sl</th>
+                                <th>Employe Id</th>
+                                <th>Employe Name</th>
+                                <th>Mobile-No</th>
+                                <th>Email</th>
+                                <th>Audit Name</th>
+                                <th>Audit Feedback date</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(data,index) in AllfeedBackCountlist">
+                                <td>{{index+1}}</td>
+                                <td>{{data.employeeId}}</td>
+                                <td>{{data.officialName}}</td>
+                                <td>{{data.mobileNo}}</td>
+                                <td>{{data.email}}</td>
+                                <td>{{data.userName}}</td>
+                                <td>{{data.employeeReplyDate}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Name:</label>
+                                    <input type="text" class="form-control" v-model="EditProfile.name">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Employee Id</label>
+                                    <input type="text" class="form-control" v-model="EditProfile.employeeId">
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">First Designation</label>
+                                    <input type="text" class="form-control" v-model="EditProfile.firstDesignation">
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Current Designation</label>
+                                    <input type="text" class="form-control" v-model="EditProfile.currentDesignation">
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section Profilejs{
+    <script src="~/Audit/Vue-controller/AuditProfile.js"></script>
+}

@@ -1,0 +1,261 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+<style>
+    .text-danger .form-control {
+        border: 1px solid #ff0000;
+    }
+</style>
+
+<div id="Administration">
+    <div class="page-breadcrumb mb-5 bg-location">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Dashboard</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Division</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-5">
+
+            <div class="card">
+                <div class="card-header">
+                    Create User
+
+                </div>
+
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+
+                            <div class="col-md-6" v-bind:class="[ClassName]">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">User Name  </label> <span class="ster"> * </span>
+                                    <input type="text" class="form-control" v-model="UserData.name" v-on:Change="NameTextBoxOnChange()" @@keyup="NameTextBoxKeyup()">
+                                    <span style="color:#ff0000">{{messageName}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" v-bind:class="[ClassemployeeId]">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Employee ID </label> <span class="ster"> * </span>
+                                    <input type="text" class="form-control" v-model="UserData.employeeId" v-on:Change="EmployeeIdTextBoxOnChange()" @@keyup="EmployeeIdTextBoxKeyup()">
+                                    <span style="color:#ff0000">{{messageemployeeId}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">First Designatione </label>
+                                    <input type="text" class="form-control" v-model="UserData.firstDesignation">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Current Designation </label>
+                                    <input type="text" class="form-control" v-model="UserData.currentDesignation">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" v-bind:class="[Classemail]">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> Email </label> <span class="ster"> * </span>
+                                    <input type="email" class="form-control" v-model="UserData.email" v-on:Change="EmailTextBoxOnChange()" @@keyup="EmailTextBoxKeyup()">
+                                    <span style="color:#ff0000">{{messageemail}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" v-bind:class="[ClassjoiningDate]">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> Joining Date </label> <span class="ster"> * </span>
+                                    <input type="date" class="form-control" v-model="UserData.joiningDate" v-on:Change="JoiningDateTextBoxOnChange()" @@keyup="JoiningDateTextBoxKeyup()">
+                                    <span style="color:#ff0000">{{messagejoiningDate}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" v-bind:class="[ClassdateofBirth]">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> Date of Birth </label> <span class="ster"> * </span>
+                                    <input type="date" class="form-control" v-model="UserData.dateofBirth" v-on:Change="DateofBirthTextBoxOnChange()" @@keyup="DateofBirthTextBoxKeyup()">
+                                    <span style="color:#ff0000">{{messagedateofBirth}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" v-bind:class="[ClassmobileNo]">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> Phone No </label> <span class="ster"> * </span>
+                                    <input type="number" class="form-control" v-model="UserData.mobileNo"  v-on:Change="MobileTextBoxOnChange()" @@keyup="MobileTextBoxKeyup()">
+                                    <span style="color:#ff0000">{{messagemobileNo}}</span>
+                                </div>
+                            </div>
+                            @*<div class="col-md-6">
+            <div class="form-group">
+                <label for="exampleInputEmail1"> Department </label>
+                <input type="text" class="form-control" v-model="user.employeeId">
+            </div>
+        </div>*@
+
+                            <div class="col-md-6" v-bind:class="[ClassuserTypeId]">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1"> User Type </label> <span class="ster"> * </span>
+                                    <select class="form-control" v-model="UserData.userTypeId" v-on:change="hidediv(UserData.userTypeId),userTypeIdOnchange(UserData.userTypeId)">
+                                        <option value="0"> Select User Type</option>
+                                        <option v-for="role in RoleList" :value="role.id" :key="role.id">{{role.name}}</option>
+                                    </select>
+                                    <span style="color:#ff0000">{{messageuserTypeId}}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6" v-show="Isauditsection">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Audit Department</label>
+                                    <select class="form-control" v-model="UserData.auditId">
+                                        <option value="0"> Select Audit Department</option>
+                                        <option v-for="audit in AuditList" :value="audit.id" :key="audit.id">{{audit.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Workplace </label>
+                                    <input type="text" class="form-control" v-model="UserData.workplace">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="text-center">
+                            <button type="button" class="btn btn-success mr-5" @@click="UserCreate()" v-show="IsShowUser">Save</button>
+                            <button type="button" class="btn btn-primary" @@click="update()" v-show="!IsShowUser">Update</button>
+                            <button type="button" class="btn btn-danger" @@click="Cancel" v-show="IsShowCancel">Cancel</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="ValidationMessage" v-show="isMassageuser">
+                <div class="alert" role="alert" v-bind:class="[ClassStatus]">
+                    {{errorMassage}}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Large modal -->
+       
+        <div class="modal fade view-user"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title text-info"> <b> {{ViewUserData.name}} Details Information </b>  </h4>
+                        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body view-user-info">
+                        <ul>
+                         
+                            <li> <b> Employee Id :</b> {{ViewUserData.employeeId}}</li>
+                            <li> <b> user Type:</b> {{ViewUserData.rolename}}</li>
+                            <li> <b> Joining Date:</b> {{ViewUserData.joiningDate}}</li>
+                            <li> <b> Workplace:</b> {{ViewUserData.workplace}}</li>
+                            <li> <b> mobileNo :</b> {{ViewUserData.mobileNo}}</li>
+                            <li> <b> Email :</b> {{ViewUserData.email}}</li>
+                            <li> <b> Date of Birth :</b> {{ViewUserData.dateofBirth}}</li>
+                            <li> <b> First Designation :</b> {{ViewUserData.firstDesignation}}</li>
+                            <li> <b> Current Designation :</b> {{ViewUserData.currentDesignation}}</li>
+                            <li v-if="ViewUserData.activeStatus==true"> <b> Active Status :</b> Active</li>
+                            <li v-if="ViewUserData.activeStatus==false"> <b> Active Status :</b>  In-Active</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+
+                    <div class="float-left"> User List</div>
+                    <div class="float-right ">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2"> <i class="fas fa-search"></i> </span>
+                            </div>
+                            <input type="search" v-model="search" class="form-control" placeholder="Search By Name" autocomplete="off">
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SL</th>
+                                <th scope="col">Name </th>
+                                <th scope="col">Mobile </th>
+                                <th scope="col">Role </th>
+                                <th scope="col"> Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(userdata, index) in FilterByUserList">
+                                <td>{{index+1}}</td>
+                                <td> {{userdata.name}} </td>
+                                <td> {{userdata.mobileNo}} </td>
+                                <td> {{userdata.rolename}} </td>
+                                <td>
+
+                                    <button type="button" class="btn btn-info btn-sm" @@click="UserEdit(userdata.id)">Edit</button>
+                                    <button type="button" class="btn btn-secondary btn-sm" @@click="ViewUser(userdata.id)"  data-toggle="modal" data-target=".view-user">View</button>
+                                    <button type="button" class="btn btn-danger btn-sm" @@click="UserDelete(userdata.id)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+@section AdminAuthorigationjs{
+    <script src="~/Vue-Controllers/Administratio.js"></script>
+}

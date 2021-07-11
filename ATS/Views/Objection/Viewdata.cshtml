@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "Viewdata";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+    var Getid2 = ViewBag.Viewdata;
+}  
+
+<p style="display:none" id="Getid2"> @ViewBag.Viewdata</p>
+<div id="objectionview">
+
+    <div class="page-breadcrumb mb-5 bg-location">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Dashboard</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Objection View</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div  style="padding-left:15%;padding-right:15%">
+        <div class="card">
+            <div class="card-body">
+                <p> <span> Para</span> : {{viewlist.para}}</p>
+                <p> <span> The Name of Victim </span> : {{viewlist.officialName}}</p>
+                <p> <span> Objection Title </span> : {{viewlist.title}}</p>
+                <div v-html="viewlist.description"></div>
+                <p> <b> Joining Date : </b> {{viewlist.joiningDate}}, <b class="pl-3"> Department : </b> {{viewlist.departmentName}},   <b class="pl-3"> Audit :</b> {{viewlist.auditName}}  <b class="pl-3"> Project Name :</b> {{viewlist.projectName}}, <b class="pl-3">  Objection for Amount : </b> {{viewlist.amount}}</p>
+                <p> <b>Current Designation :</b>{{viewlist.currentdesignation}}  , <b class="pl-3">  First Designation :</b> {{viewlist.firstdesignation}}  </p>
+                <p><b>  Mobile-No </b> : {{viewlist.mobileNo}}   , <b class="pl-3">  Email : </b> {{viewlist.email}} </p>
+
+
+
+                
+                <p> <b> Address :</b> {{ viewlist.divisionName}}, {{viewlist.districtName}}, {{viewlist.upazilaName}}</p>
+                <p> <b>Audit Objection Create Date : </b> {{viewlist.auditobjectioncreateDate}}   <b class="pl-3"> Audit Objection Submissions Date:</b> {{viewlist.auditobjectionsubmissionsDate}} </p>
+                <p> <span> </span></p>
+                <p> <span> </span></p>
+                <p> <span> </span></p>
+            </div>
+        </div>
+    </div>
+    
+
+
+</div>
+
+
+@section objectionviewjs{
+    <script src="~/Vue-Controllers/ObjectionView.js"></script>
+ }

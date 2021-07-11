@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewData["Title"] = "Role";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+
+
+<div id="Administration">
+    <div class="page-breadcrumb mb-5 bg-location">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Dashboard</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">District</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" >
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    Create Role
+
+                </div>
+
+                <div class="card-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1"> Role Name  </label>
+                            <input type="text" class="form-control" v-model="Role.roleName">
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-success" @@click="roleCreate" v-show="IsShowRole">Save</button>
+                            <button type="button" class="btn btn-primary" @@click="roleUpdate" v-show="!IsShowRole">Update</button>                      
+                            <button type="button" class="btn btn-danger" @@click="Cancel" v-show="IsShowCancel">Cancel</button>                      
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+            <div class="ValidationMessage" v-show="isMassage">
+                <div class="alert" role="alert" v-bind:class="[ClassStatus]">
+                    {{errorMassage}}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+
+                    <div class="float-left"> Role List</div>
+
+                  
+                </div>
+
+
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Role Id </th>
+                                <th>Role Name </th>
+                                <th> Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(data, index) in RoleList">
+                                <td>{{index+1}} </td>
+                                <td>{{data.id}} </td>
+                                <td>{{data.name}} </td>
+
+
+                                <td>
+                                    
+                                    <button type="button" class="btn btn-info btn-sm" @@click="RoleEdit(data.id)">Edit</button>
+                                    <button type="button" class="btn btn-danger btn-sm" @@click="Delete(data.id)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section AdminAuthorigationjs{
+    <script src="~/Vue-Controllers/Administratio.js"></script>
+ }

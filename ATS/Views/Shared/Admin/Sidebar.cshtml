@@ -1,0 +1,176 @@
+﻿
+<div class="scroll-sidebar">
+
+    <nav class="sidebar-nav">
+        <ul id="sidebarnav" class="p-t-30">
+            <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-action="Index" asp-controller="Dashboard" aria-expanded="false">
+                    <i class="mdi mdi-view-dashboard"></i>
+                    <span class="hide-menu">Dashboard</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Basic SetUp </span></a>
+                <ul aria-expanded="false" class="collapse  first-level">
+                    <li class="sidebar-item">
+                        <a asp-action="Index" asp-controller="Department" class="sidebar-link">
+                            <i class="mdi mdi-note-outline"></i>
+                            <span class="hide-menu">Department </span>
+                        </a>
+                    </li>
+
+
+                    <li class="sidebar-item">
+                        <a asp-action="Index" asp-controller="Audit" class="sidebar-link">
+                            <i class="mdi mdi-note-plus"></i>
+                            <span class="hide-menu"> Audit  </span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a asp-action="Index" asp-controller="Project" class="sidebar-link">
+                            <i class="mdi mdi-note-plus"></i>
+                            <span class="hide-menu"> Project </span>
+                        </a>
+                    </li>
+
+
+
+                    @*<li class="sidebar-item">
+            <a asp-action="Index" asp-controller="" class="sidebar-link">
+                <i class="mdi mdi-note-plus"></i>
+                <span class="hide-menu"> DPA mapping   </span>
+            </a>
+        </li>*@
+
+                    <li class="sidebar-item">
+                        <a asp-action="Index" asp-controller="Division" class="sidebar-link">
+                            <i class="mdi mdi-note-plus"></i>
+                            <span class="hide-menu"> Division   </span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a asp-action="Index" asp-controller="District" class="sidebar-link">
+                            <i class="mdi mdi-note-plus"></i>
+                            <span class="hide-menu"> District   </span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a asp-action="Index" asp-controller="Upzila" class="sidebar-link">
+                            <i class="mdi mdi-note-plus"></i>
+                            <span class="hide-menu"> Upazila   </span>
+                        </a>
+                    </li>
+
+                    @*<li class="sidebar-item">
+            <a asp-action="Index" asp-controller="" class="sidebar-link">
+                <i class="mdi mdi-note-plus"></i>
+                <span class="hide-menu"> DDU Mapping   </span>
+            </a>
+        </li>*@
+
+                </ul>
+            </li>
+
+
+            <li class="sidebar-item">
+                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Objection </span></a>
+                <ul aria-expanded="false" class="collapse  first-level">
+                    <li class="sidebar-item">
+                        <a asp-action="CreateObjection" asp-controller="Objection" class="sidebar-link">
+                            <i class="mdi mdi-note-outline"></i>
+                            <span class="hide-menu"> Objection Create </span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a asp-action="Index" asp-controller="Objection" class="sidebar-link">
+                            <i class="mdi mdi-note-plus"></i>
+                            <span class="hide-menu"> Objection List </span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-action="Index" asp-controller="Report" aria-expanded="false">
+                    <i class="mdi mdi-relative-scale"></i>
+                    <span class="hide-menu"> Report</span>
+                </a>
+            </li>
+
+
+
+            <li class="sidebar-item">
+            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                <i class="mdi mdi-receipt"></i>
+                <span class="hide-menu">Authorization</span>
+            </a>
+
+            <ul aria-expanded="false" class="collapse  first-level">
+
+                <li class="sidebar-item">
+                    <a asp-action="Index" asp-controller="Administration" class="sidebar-link">
+                        <i class="mdi mdi-note-outline"></i>
+                        <span class="hide-menu"> Administration Home</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a asp-action="Create" asp-controller="Administration" class="sidebar-link">
+                        <i class="mdi mdi-note-outline"></i>
+                        <span class="hide-menu"> User Create </span>
+                    </a>
+                </li>
+
+
+                @*<li class="sidebar-item">
+                    <a asp-action="Index" asp-controller="" class="sidebar-link">
+                        <i class="mdi mdi-note-plus"></i>
+                        <span class="hide-menu"> User Role</span>
+                    </a>
+                </li>*@
+
+                <li class="sidebar-item">
+                    <a asp-action="Role" asp-controller="Administration" class="sidebar-link">
+                        <i class="mdi mdi-note-plus"></i>
+                        <span class="hide-menu">Role Create </span>
+                    </a>
+                </li>
+
+                
+
+
+            </ul>
+        </li>
+
+
+
+        @*<li class="sidebar-item">
+            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-action="Index" asp-controller="" aria-expanded="false">
+                <i class="mdi mdi-relative-scale"></i>
+                <span class="hide-menu">Blog</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
+            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-action="Index" asp-controller="Testimonial" aria-expanded="false">
+                <i class="mdi mdi-relative-scale"></i>
+                <span class="hide-menu">Testimonial</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
+            <a class="sidebar-link waves-effect waves-dark sidebar-link" asp-action="Index" asp-controller="" aria-expanded="false">
+                <i class="mdi mdi-relative-scale"></i>
+                <span class="hide-menu">Banner</span>
+            </a>
+        </li>*@
+
+
+        </ul>
+    </nav>
+
+</div>

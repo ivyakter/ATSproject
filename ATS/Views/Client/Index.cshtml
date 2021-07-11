@@ -1,0 +1,398 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Client/Client_Layout.cshtml";
+}
+
+<style>
+    button.page-link {
+        display: inline-block;
+    }
+
+    button.page-link {
+        font-size: 20px;
+        color: #29b3ed;
+        font-weight: 500;
+    }
+
+    .offset {
+        width: 500px !important;
+        margin: 20px auto;
+    }
+</style>
+
+<div id="ClientMain" style="margin-top:6%">
+
+    @*<div class="container" v-show="showsClear">
+            <div class="float-right pt-2 Clear-All">
+                <button class="btn btn-danger btn-sm" v-on:click="ClearAll()">Clear All</button>
+            </div>
+        </div>*@
+
+
+    <div class="container">
+        <div class="row  filter-row">
+
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <a class=" btn btn-info btn-sm w-100 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" v-bind:class="{active: isproject}">
+                        {{Departmentcselect}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" v-for="Department in DepartmentList"
+                           v-on:click=filterDepartment(Department.id,Department.name)>{{Department.name}}</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-2">
+                <div class="dropdown">
+                    <a class=" btn btn-info btn-sm w-100 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        {{Aduit}}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item text-danger" v-show="isAudit">
+                            <span>Department select </span>
+                        </a>
+
+                        <a class="dropdown-item" v-for="Audit in filterAudit" v-on:click=Auditfilter(Audit.id,Audit.name)>
+
+                            {{Audit.name}}
+
+                        </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+            @*<div class="col-md-2">
+                    <div class="dropdown">
+                        <a class=" btn btn-info btn-sm w-100 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            {{Projecselect}}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" v-for="Project in ProjectList">{{Project.name}}</a>
+
+                        </div>
+                    </div>
+                </div>*@
+
+            <div class="col-md-2">
+                <div class="dropdown dropdown-hover  ">
+                    <a class=" btn btn-info btn-sm w-100 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        {{YearsSelect}}
+                    </a>
+                    <div class="dropdown-menu gg" aria-labelledby="dropdownMenuButton" style="height:300px;overflow-y:scroll;overflow-x:hidden">
+                        <a class="dropdown-item" v-for=" years in yearsList" v-on:click="filtterYears(years)" :value="years">{{years}}</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="dropdown dropdown-hover  ">
+                    <a class=" btn btn-info btn-sm w-100 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        {{DivisionSelect}}
+                    </a>
+                    <div class="dropdown-menu gg" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" v-for=" division in DivisionList"
+                           v-on:click=Division(division.id,division.name)>{{division.name}}</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="dropdown dropdown-hover  ">
+                    <a class=" btn btn-info btn-sm w-100 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        {{DistrictSelect}}
+                    </a>
+                    <div class="dropdown-menu gg" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item text-danger" v-show="isDivision">
+                            <span>Division select </span>
+                        </a>
+                        <a class="dropdown-item" v-for=" Distric in DistricList" v-on:click=District(Distric.id,Distric.name)>{{Distric.name}}</a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="dropdown dropdown-hover">
+                    <a class=" btn btn-info btn-sm w-100 dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        {{UpazilaSelect}}
+                    </a>
+
+                    <div class="dropdown-menu gg" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item text-danger" v-show="isDistric">
+                            <span>Distric select </span>
+                        </a>
+                        <a class="dropdown-item" v-for=" Upazila in UpazilaList" v-on:click=Upzila(Upazila.id,Upazila.name)>{{Upazila.name}}</a>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="container r-mb-0 pt-1 " v-show="showsClear">
+                <div class="float-right Clear-All">
+                    <button class="btn btn-danger btn-sm pl-5 pr-5" v-on:click="ClearAll()">Clear All</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="listof-data mt-2 main-p-l">
+        <div class="container">
+            <div class="new-arrive-titel mb-4">
+                <div class="row">
+
+                    <div class="col-md-4 mb-3">
+                        <label for="exampleInputEmail1"> Select Your Start Date</label>
+                        <div class="input-group flex-nowrap">
+
+                            <div class="input-group-prepend">
+
+                                <span class="input-group-text" id="addon-wrapping">
+                                    <span class="pr-2">
+                                        <i class="fas fa-step-backward"></i>
+                                    </span> Start Date
+                                </span>
+                            </div>
+                            <input v-on:change="FlitterByStartDate()" type="date" class="form-control" v-model="filterObject.submissionStartDate"  autocomplete="off" placeholder="startDate">
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="exampleInputEmail1"> Select Your End Date</label>
+                        <div class="input-group flex-nowrap">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="addon-wrapping">
+                                    <span class="pr-2">
+                                        <i class="fas fa-step-forward"></i>
+                                    </span> End Date
+                                </span>
+                            </div>
+                            <input v-on:change="FlitterByEndDate()" type="date" class="form-control" v-model="filterObject.submissionEndDate" autocomplete="off" placeholder="endDate">
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="exampleInputEmail1">Search Mobile No</label>
+                        <div class="input-group flex-nowrap">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="addon-wrapping">
+                                    <span class="pl-2 pr-2"> <i class="fas fa-search"></i> </span>
+
+                                </span>
+                            </div>
+
+                            <input v-on:keyup="FlitterBymobileNo(filterObject.mobileNo)" type="text" class="form-control" v-model="filterObject.mobileNo"  autocomplete="off" placeholder="Search">
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="progress" style="height: 1px; background-color:#adb5bd;">
+                    <div role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar">
+                    </div>
+                </div>
+            </div>
+
+
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+
+                        <th>Employee Id</th>
+                        <th>Name</th>
+                        <th>Project</th>
+                        <th> Audit </th>
+
+                        <th>Title</th>
+                        <th>Amount</th>
+                        <th>Process</th>
+                        <th>Pending</th>
+                        <th>Settled</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    <tr v-for="(data, index) in pagingfinddata">
+
+                        <td> {{data.employeeId}}</td>
+                        <th>{{data.officialName}}</th>
+                        <td>
+                            {{data.projectName}}
+                        </td>
+                        <td> {{data.auditName}}</td>
+                        <td> {{data.title}}</td>
+
+                        <td>Tk {{data.amount}} </td>
+
+                        <td>
+                            <span class=" text-danger font-weight-bolder" v-if="data.statusProcess==1"> Process </span>
+                        </td>
+
+                        <td>
+                            <span class="text-warning font-weight-bolder" v-if="data.statusPending==2"> Pending </span>
+                        </td>
+
+                        <td>
+                            <span class="text-success font-weight-bolder" v-if="data.statusSettled==3"> Settled </span>
+                        </td>
+
+                        <td class="remove-focas">
+                            <button class="remove-focas btn-group btn-info btn-group-sm" data-toggle="modal" data-target=".homeClainmodal"
+                                    v-on:click="viewObjectrion(data.id)">
+                                <span class="pr-2"> <i class="fas fa-eye"></i> </span> View
+                                Details
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+
+            <div class="modal fade bd-example-modal-lg homeClainmodal"  role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <a class="close text-right pr-3 pt-2" data-dismiss="modal" aria-label="Close" style="cursor:pointer;color:red">
+                            <span aria-hidden="true">&times;</span>
+                        </a>
+
+                        <div class="modal-body">
+
+                            <div class="padding-left-right style-ul-li">
+
+                                <ul>
+                                    <li> <span> <b>para : </b> </span> {{viewobjectionlist.para}}  </li>
+                                    <li> <b> Name : </b> <span> </span>  {{viewobjectionlist.officialName}} </li>
+                                    <li>  <b>Emaloyee Id : </b> <span> {{viewobjectionlist.employeeId}}</span>   </li>
+                                    <li class="w-100"> <span class="w-100">  <b>Objection Titel : </b>  {{viewobjectionlist.title}} </span> </li>
+
+                                    <li class="w-100 d-flex">
+                                        <span class="w-50"> <b>First Designation : </b>   {{viewobjectionlist.firstdesignation}}</span>
+                                        <span class="w-50"> <b>Current Designation :  </b> {{viewobjectionlist.currentdesignation}}</span>
+                                    </li>
+
+                                    <li class="w-100 d-flex">
+                                        <span class="w-50"> <b>Date of Birth : </b>   {{viewobjectionlist.dateofBirth}} </span>
+                                        <span class="w-50"> <b>Joining Date : </b>  {{viewobjectionlist.joiningDate}}  </span>
+                                    </li>
+
+                                    <li class="w-100 d-flex">
+                                        <span class="w-50"> <b>Department Name :  </b>  {{viewobjectionlist.departmentName}} </span>
+                                        <span class="w-50"> <b>Audit Name : </b> {{viewobjectionlist.auditName}}  </span>
+                                    </li>
+
+                                    <li class="w-100 d-flex">
+                                        <span class="w-50"> <b>Project Name :  </b>  {{viewobjectionlist.projectName}} </span>
+                                        <span class="w-50"> <b>Amount : </b>  {{viewobjectionlist.amount}} </span>
+                                    </li>
+
+                                    <li class="w-100 d-flex">
+                                        <span class="w-50"> <b>Address  :</b>  {{viewobjectionlist.divisionName}}, {{viewobjectionlist.districtName}}, {{viewobjectionlist.upazilaName}} </span>
+                                        <span class="w-50"> <b>WorkPlace : </b>    {{viewobjectionlist.workplace}} </span>
+                                    </li>
+                                    <li class="w-100 d-flex">
+                                        <span class="w-50"> <b>Mobile No :  </b>  {{viewobjectionlist.mobileNo}} </span>
+                                        <span class="w-50"> <b>Email : </b>  {{viewobjectionlist.email}} </span>
+                                    </li>
+
+                                    <li class="w-100 d-flex">
+                                        <span class="w-50"> <b>Audit objection create Date : </b>  {{viewobjectionlist.auditobjectioncreateDate}} </span>
+                                        <span class="w-50"> <b>Audit objection submissions Date : </b>  {{viewobjectionlist.auditobjectionsubmissionsDate}} </span>
+                                    </li>
+
+                                    <li class="w-100 d-flex">
+                                        <span class="w-50"> <b>Year: </b> <span></span>  {{viewobjectionlist.years}}</span>
+                                        <span class="w-50">
+                                            <b>Status : </b>
+                                            <span class=" text-danger font-weight-bolder" v-if="viewobjectionlist.statusProcess==1"> Process </span>
+                                            <span class="text-warning font-weight-bolder" v-if="viewobjectionlist.statusPending==2"> Pending </span>
+                                            <span class="text-success font-weight-bolder" v-if="viewobjectionlist.statusSettled==3"> Settled </span>
+                                        </span>
+
+                                    </li>
+
+                                    <li>
+                                        <b>Description :</b>
+                                        
+                                        <p v-html="viewobjectionlist.description"></p>
+
+                                    </li>
+                                    <li class="w-100 d-flex">
+                                        <span class="w-100"> <b>Employee Reply Date : </b>  {{viewobjectionlist.employeeReplyDate}} </span>
+                                    </li>
+                                    <li class="w-100 d-flex">
+                                        <span class="w-100"> <b>Employee Reply: </b>  {{viewobjectionlist.employeeReply}} </span>
+                                    </li>
+
+                                    <li class="w-100 d-flex">
+                                        <span class="w-100"> <b>Audit Feetback Date: </b>  {{viewobjectionlist.auditFeetbackDate}} </span>
+                                    </li>
+                                    <li class="w-100 d-flex">
+                                        <span class="w-100"> <b>Audit Feetback: </b>  {{viewobjectionlist.auditFeetback}} </span>
+                                    </li>
+                                </ul>
+
+
+
+                                <div class="text-left comment-btn mt-4">
+                                    <a class="btn-msp" asp-action="Login" asp-controller="Client">Say Something</a>
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <button type="button" class="page-link" v-if="page != 1" v-on:click="page--">  <span class="pagination-style">  <span> <i class="fas fa-long-arrow-alt-left"></i> </span> Previous</span>  </button>
+                </li>
+                @*<li class="page-item">
+                    <button type="button" class="page-link" v-for="pageNumber in pages.slice(page-1, page+4)" v-on:click="page = pageNumber"> {{pageNumber}} </button>
+                </li>*@
+                <li class="page-item">
+                    <button type="button" v-on:click="page++" v-if="page<finddata.length" class="page-link"> <span class="pagination-style"> Next <span> <i class="fas fa-long-arrow-alt-right"></i></span> </span> </button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+  
+
+</div>
+    @section ClientHomeJs{
+        <script src="~/Client_plugin/Client_Vue_Controllers/ClientMain.js"></script>
+    }

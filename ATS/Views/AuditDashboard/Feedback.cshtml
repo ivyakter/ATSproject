@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewData["Title"] = "Feedback";
+    Layout = "~/Views/Shared/Audit/_Audit_Layout.cshtml";
+}
+
+<p style="display:none" id="Feedbackname">@User.Identity.Name</p>
+<style>
+    .fectback .form-control {
+        height: calc(1.5em + .75rem + 5px);
+    }
+
+    .r-w {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+</style>
+<div id="Feedback">
+
+    <div class="notification-list-titel mt-5 ">
+     
+        <div class="row ">
+            <h4  class="col-8 r-w"> <span>All</span> Feedback List</h4>
+            <div class="col-4 r-w mb-1">
+                <div class="input-group w-30 fectback">
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="basic-addon2"> <i class="fas fa-search"></i> </span>
+                    </div>
+                    <input type="search" v-model="search" class="form-control" placeholder="Search By Mobile-No" autocomplete="off">
+                </div>
+            </div>
+
+        </div>
+        <div class="progress" style="height: 1px;">
+            <div class="progress-bar" role="progressbar" style="width:194px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+
+
+
+
+    <table class="table table-sm table-bordered table-hover mt-4">
+        <thead>
+            <tr>
+                <th>Sl</th>
+                <th>Employe Id</th>
+                <th>Employe Name</th>
+                <th>Mobile-No</th>
+                <th>Email</th>
+                <th>Audit Name</th>
+                <th>Audit Feedback date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr v-for="homedata in filteredFeedbacklist">
+                <td>2</td>
+                <td>{{homedata.employeeId}}</td>
+                <td>{{homedata.officialName}}</td>
+                <td>{{homedata.mobileNo}}</td>
+                <td>{{homedata.email}}</td>
+                <td>{{homedata.userName}}</td>
+                <td>{{homedata.employeeReplyDate}}</td>
+                <td>
+                    <span class=" text-danger font-weight-bolder" v-if="homedata.statusProcess==1"> Process </span>
+                    <span class="text-warning font-weight-bolder" v-if="homedata.statusPending==2"> Pending </span>
+                    <span class="text-success font-weight-bolder" v-if="homedata.statusSettled==3"> Settled </span>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-outline-primary btn-sm" @@click="ViewFeedback(homedata.id)">View</button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+@section Feedbackjs{
+
+    <script src="~/Audit/Vue-controller/Feedback.js"></script>
+}

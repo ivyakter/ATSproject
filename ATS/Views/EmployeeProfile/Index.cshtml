@@ -1,0 +1,354 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Client/Client_Layout.cshtml";
+}
+<p style="display:none" id="getidname">@User.Identity.Name</p>
+<div class="view-profile" id="EMPProfile" style="margin-top:5%">
+    <div class="container pt-5">
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="emp-info bg-light ">
+                    <div class="emp-image mb-3">
+                        <img src="~/Client_plugin/img/user.png" />
+                    </div>
+                    <p>Employee Name :  {{commondataList.officialName}} </p>
+                    <p>Designatio:  {{commondataList.currentdesignation}} </p>
+                    <p>Date of Birth:  {{commondataList.dateofBirth}} </p>
+                    <p>Workplace:  {{commondataList.workplace}} </p>
+                    <p>Mobile-No:  {{commondataList.mobileNo}} </p>
+                    <p>Email:  {{commondataList.email}} </p>
+
+                </div>
+
+
+            </div>
+            <div class="col-md-8">
+
+                <div class="row">
+
+                    <div class="col-6 col-md-6 col-lg-6 mb-5">
+                        <div class="count-item shadow" @@click="TotalObjection(commondataList.employeeId)">
+                            <span class="mr-2 text-item"> Total Objection </span> <span class="badge badge-pilladge-light badge-info">{{Countdata}}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-6 col-lg-6  mb-5">
+                        <div class="count-item shadow bg-secondary text-white" @@click="COuntObjection()" data-toggle="modal" data-target=".bd-example-modal-xl">
+                            <span class="mr-2 text-item"> Total Objection Amount </span> <span class="badge badge-pilladge-light badge-info"> <span> ৳ </span> {{total}}</span>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-6  mb-5">
+                        <div class="count-item shadow bg-danger text-white" @@click="TotalObjection(commondataList.employeeId)">
+                            <span class="mr-2 text-item ">Objection Process </span> <span class="badge badge-pilladge-light badge-info">{{CountProcess}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-6 col-lg-6  mb-5">
+                        <div class="count-item shadow bg-warning" @@click="TotalObjection(commondataList.employeeId)">
+                            <span class="mr-2 text-item">Objection Paddinng </span> <span class="badge badge-pilladge-light badge-info">{{CountPandding}}</span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-6 col-md-6 col-lg-6">
+                        <div class="count-item shadow bg-success text-white" @@click="TotalObjection(commondataList.employeeId)">
+                            <span class="mr-2 text-item">Objection Settled </span> <span class="badge badge-pilladge-light badge-info">{{CountSettled}}</span>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-6 col-lg-6 mb-5">
+                        <div class="count-item shadow bg-info text-white">
+                            <a class="text-white" asp-action="ChangePassword" asp-controller="EmployeeProfile"> <i class="fas fa-key"></i> Change Password</a>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-6 col-lg-6">
+                        <div class="count-item shadow bg-warning">
+                            <a class="text-dark" data-toggle="modal" data-target=".edit-profile"><i class="fas fa-edit"></i> Edit Profile</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div v-if="CountProcess!=0">
+
+            <div class="notification-list-titel mt-5">
+                <h4> <span>O</span>bjection List</h4>
+                <div class="progress" style="height: 1px;">
+                    <div class="progress-bar" role="progressbar" style="width:147px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+
+
+            <table class="table table-sm table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>Sl</th>
+                        <th>Para </th>
+                        <th>Department Name</th>
+                        <th>Audit Name</th>
+                        <th>Project Name</th>
+                        <th>Title</th>
+                        <th>Mobile-No</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="data in NewObjectionList">
+                        <th>1</th>
+                        <td>{{data.para}}</td>
+                        <td>{{data.departmentName}}</td>
+                        <td>{{data.auditName}}</td>
+                        <td> {{data.projectName}}</td>
+                        <td> {{data.title}} </td>
+                        <td>{{data.mobileNo}}</td>
+                        <td> {{data.amount}}</td>
+                        <td> <button type="button" class="btn btn-outline-info btn-sm" @@click="ReplyobjectionViewdataforsignal(data.id)" data-toggle="modal" data-target=".Replymodal">Reply</button> </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    @*replyModal*@
+    <div class="modal fade bd-example-modal-lg Replymodal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <a class="close text-right pr-3 pt-2" data-dismiss="modal" aria-label="Close" style="cursor:pointer;color:red">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="padding-left-right">
+                                <h5 class="card-header">New Objection </h5>
+                                <div class="card-body">
+                                    <ul>
+                                        <li> <span>para : </span> {{ReplyobjectionViewdata.para}}  </li>
+                                        <li> <span>Name : </span>  {{ReplyobjectionViewdata.officialName}} </li>
+                                        <li> <span>Emaloyee Id : {{ReplyobjectionViewdata.employeeId}}</span>   </li>
+                                        <li> <span>Objection Titel :</span>  {{ReplyobjectionViewdata.title}} </li>
+                                        <li> <span>First Designation :</span>  {{ReplyobjectionViewdata.firstdesignation}} ,<span>Current Designation :</span>  {{ReplyobjectionViewdata.currentdesignation}} </li>
+                                        <li> <span>Date of Birth :</span>  {{ReplyobjectionViewdata.dateofBirth}},  <span>Joining Date :</span>  {{ReplyobjectionViewdata.joiningDate}}  </li>
+                                        <li> <span>Years :</span>  {{ReplyobjectionViewdata.years}} </li>
+                                        <li> <span>Department Name :</span>  {{ReplyobjectionViewdata.departmentName}}, <span>Audit Name :</span>  {{ReplyobjectionViewdata.auditName}}, <span>Project Name :</span>  {{ReplyobjectionViewdata.projectName}} </li>
+                                        <li> <span>Division Name :</span>  {{ReplyobjectionViewdata.divisionName}}, <span>District Name :</span>  {{ReplyobjectionViewdata.districtName}}, <span>Upazila Name :</span>  {{ReplyobjectionViewdata.upazilaName}} </li>
+                                        <li> <span>Mobile No :</span>  {{ReplyobjectionViewdata.mobileNo}}, <span>Email :</span>  {{ReplyobjectionViewdata.email}}, <span>Work Place :</span>  {{ReplyobjectionViewdata.workplace}}</li>
+                                        <li> <span>Amount :</span>  {{ReplyobjectionViewdata.amount}} </li>
+                                        <li> <span>Audit objection create Date :</span>  {{ReplyobjectionViewdata.auditobjectioncreateDate}}, <span>Audit objection submissions Date :</span>  {{ReplyobjectionViewdata.auditobjectionsubmissionsDate}} </li>
+                                        <li> <span>status :</span>  {{ReplyobjectionViewdata.status}} </li>
+
+                                        <li>
+                                            <span>Description :</span>
+                                            <partial v-html="ReplyobjectionViewdata.description"></partial>
+
+                                        </li>
+
+                                    </ul>
+                                    <div>
+                                        <div class="form-group mb-3">
+                                            <label for="exampleFormControlTextarea1"> <b class="text-primary"> {{ReplyobjectionViewdata.officialName}} Reply for Objection </b> </label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" v-model="ReplyEMP.employeeReply" rows="2"></textarea>
+                                        </div>
+                                        <div class="submit-div mt-4 mb-5 text-center">
+                                            <a @@click="Update"> Send </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="text-left p-3">
+                                    <div class="ValidationMessage" v-show="isMassage">
+                                        <div class="alert" role="alert" v-bind:class="[ClassStatus]">
+                                            {{errorMassage}}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Profile Edit -->
+    <div class="modal fade bd-example-modal-lg edit-profile" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> {{commondataList.officialName}}</h5>
+                    <a class="close text-right pr-3 pt-2" data-dismiss="modal" aria-label="Close" style="cursor:pointer;color:red;opacity:1 !important">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                            <input type="text" class="form-control" v-model="editprofile.workplace">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">First Designation</label>
+                            <input type="text" class="form-control" v-model="editprofile.firstdesignation">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Current Designation</label>
+                            <input type="text" class="form-control" v-model="editprofile.currentdesignation">
+                        </div>
+                    </form>
+                </div>
+                <div class="text-left p-3">
+                    <div class="ValidationMessage" v-show="isMassage">
+                        <div class="alert" role="alert" v-bind:class="[ClassStatus]">
+                            {{errorMassage}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-right p-3">
+                    <button type="button" class="btn btn-primary btn-sm" @@click="userprofileUpte()">Update Information</button>
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <a class="close text-right pr-3 pt-2" data-dismiss="modal" aria-label="Close" style="cursor:pointer;color:red">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+                <div class="modal-body">
+
+                    <div class="notification-list-titel">
+                        <h4> <span>A</span>mount List</h4>
+                        <div class="progress" style="height: 1px;">
+                            <div class="progress-bar" role="progressbar" style="width:147px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered ">
+                        <thead>
+                            <tr>
+                                <th>Sl</th>
+                                <th>Para</th>
+                                <th>Department Name</th>
+                                <th>Audit</th>
+                                <th> Title</th>
+                                <th> Project</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(viewamounth, index) in CountObjectionList">
+                                <th>{{index+1}}</th>
+                                <td>{{viewamounth.para}}</td>
+                                <td>{{viewamounth.departmentName}}</td>
+                                <td> {{viewamounth.auditName}}</td>
+                                <td> {{viewamounth.title}}</td>
+                                <td> {{viewamounth.projectName}}</td>
+                                <td> {{viewamounth.amount}} Tk</td>
+                            </tr>
+                            <tr class="total-count">
+                                <th colspan="6" class="text-right pr-2 text-info"> Total Amount</th>
+                                <th> {{total}} Tk</th>
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @*<div class="modal fade bd-example-modal-lg modal-add" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <a class="close text-right pr-3 pt-2" data-dismiss="modal" aria-label="Close" style="cursor:pointer;color:red">
+                        <span aria-hidden="true">&times;</span>
+                    </a>
+
+                    <div class="modal-body">
+
+                        <div class="padding-left-right style-ul-li">
+
+                            <ul>
+                                <li> <span> <b>para : </b> </span> {{CountObjectionList.para}}  </li>
+                                <li> <b> Name : </b> <span> </span>  {{viewsinglpersondatadata.officialName}} </li>
+                                <li>  <b>Emaloyee Id : </b> <span> {{viewsinglpersondatadata.employeeId}}</span>   </li>
+                                <li>  <b>Objection Titel : </b> <span></span>  {{viewsinglpersondatadata.title}} </li>
+                                <li>  <b>First Designation : </b> <span></span>  {{viewsinglpersondatadata.firstdesignation}} ,<span>Current Designation :</span>  {{viewsinglpersondatadata.currentdesignation}} </li>
+                                <li>  <b>Date of Birth : </b> <span></span>  {{viewsinglpersondatadata.dateofBirth}},  <span>Joining Date :</span>  {{viewsinglpersondatadata.joiningDate}}  </li>
+                                <li>  <b>Years : </b> <span></span>  {{viewsinglpersondatadata.years}} </li>
+                                <li>  <b>Department Name : </b> <span></span>  {{viewsinglpersondatadata.departmentName}}, <span> <b>Audit Name : </b></span>  {{viewsinglpersondatadata.auditName}}, <span> <b> Project Name : </b></span>  {{viewsinglpersondatadata.projectName}} </li>
+                                <li> <span> <b>Division Name : </b> </span>  {{viewsinglpersondatadata.divisionName}}, <span> <b> District Name : </b></span>  {{viewsinglpersondatadata.districtName}}, <span> <b> Upazila Name : </b></span>  {{viewsinglpersondatadata.upazilaName}} </li>
+                                <li> <span> <b>Mobile No : </b> </span>  {{viewsinglpersondatadata.mobileNo}}, <span> <b> Email : </b></span>  {{viewsinglpersondatadata.email}}, <span> <b> WorkPlace : </b> </span>  {{viewsinglpersondatadata.workplace}}</li>
+                                <li> <span> <b> Amount : </b></span>  {{viewsinglpersondatadata.amount}} </li>
+                                <li> <span> <b>Audit objection create Date : </b> </span>  {{viewsinglpersondatadata.auditobjectioncreateDate}}, <span> <b>Audit objection submissions Date : </b> </span>  {{viewsinglpersondatadata.auditobjectionsubmissionsDate}} </li>
+                                <li>
+                                    <b>Status : </b>
+                                    <span class=" text-danger font-weight-bolder" v-if="viewsinglpersondatadata.statusProcess==1"> Process </span>
+                                    <span class="text-warning font-weight-bolder" v-if="viewsinglpersondatadata.statusPending==2"> Pending </span>
+                                    <span class="text-success font-weight-bolder" v-if="viewsinglpersondatadata.statusSettled==3"> Settled </span>
+                                </li>
+
+                                <li>
+                                    <b>Description :</b>
+
+                                    <partial v-html="viewsinglpersondatadata.description"></partial>
+
+                                </li>
+                            </ul>
+
+
+
+
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+
+
+
+
+</div>
+
+</div>
+
+@section EmpProfileJs{ 
+    <script src="~/Client_plugin/Client_Vue_Controllers/EmployeeProfile.js"></script>
+}

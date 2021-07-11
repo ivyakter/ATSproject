@@ -1,0 +1,129 @@
+﻿
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   
+    <!-- Bootstrap CSS -->
+    <link rel="icon" type="image/png" href="~/Client_plugin/img/Ats-2.png" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link href="~/Client_plugin/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Client_plugin/css/style.css" rel="stylesheet" />
+    <link href="~/Client_plugin/css/login.css" rel="stylesheet" />
+
+    <title>
+        ATS
+    </title>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" asp-action="index" asp-controller="Client">
+
+                <img src="~/Client_plugin/img/Ats-2.png" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto" id="side-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="index" asp-controller="Client">নিরীক্ষা আপত্তি</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="StatementofWorkingObjection" asp-controller="Client">কর্মকালিন আপত্তির বিবরণী </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Report" asp-controller="Client">রিপোর্ট </a>
+                    </li>
+
+
+                    @if (User.Identity.Name != null)
+                    {
+                        if (User.IsInRole("User"))
+                        {
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="Index" asp-controller="EmployeeProfile">
+                                    @User.Identity.Name
+                                </a>
+
+                            </li>
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Client/Logout">
+                                    <span class="pr-1"> <i class="fas fa-unlock-alt"></i> </span> Sign
+                                    Out
+                                </a>
+
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-action="Login" asp-controller="Client">
+                                    <span class="pr-1"> <i class="fas fa-lock"></i> </span>Login
+                                </a>
+                            </li>
+                        }
+
+
+                    }
+
+
+                    else
+                    {
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Login" asp-controller="Client">
+                                <span class="pr-1"> <i class="fas fa-lock"></i> </span>Login
+                            </a>
+                        </li>
+
+                    }
+
+
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div>
+        @RenderBody()
+    </div>
+
+
+    <script src="~/Client_plugin/js/Vue-js.js"></script>
+    <script src="~/Client_plugin/js/axios.js"></script>
+    <script src="~/Client_plugin/js/Slim.js"></script>
+    <script src="~/Client_plugin/js/popper.min.js"></script>
+    <script src="~/Client_plugin/js/bootstrap.min.js"></script>
+
+    <script src="~/Client_plugin/js/jQuery.js"></script>
+    <script src="~/Client_plugin/js/coustomjquary.js"></script>
+
+    @RenderSection("userloginjs", required: false)
+    @RenderSection("ClientHomeJs", required: false)
+    @RenderSection("osofwjs", required: false)
+    @RenderSection("swoSingalpersonjs", required: false)
+    @RenderSection("EmpProfileJs", required: false)
+    @RenderSection("RepotJs", required: false)
+    <script src="~/Client_plugin/js/jqurycustom.js"></script>
+
+</body>
+
+</html>

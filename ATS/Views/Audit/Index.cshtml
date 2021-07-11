@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Admin/_AdminLayout.cshtml";
+}
+
+
+
+
+<div id="Audit">
+    <div class="page-breadcrumb mb-5 bg-location">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Dashboard</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a asp-action="Index" asp-controller="Dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Audit</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    Create Audit
+
+                </div>
+
+                <div class="card-body">
+                    <form>
+
+
+                        <div class="form-group">
+                            <label for="exampleInputEmail1"> Audit Name </label>
+                            <input type="text" class="form-control" v-model="Audit.name">
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect2"> Department </label>
+                            <select class="form-control" v-model="Audit.departmentId">
+                                <option value="0">Select Department</option>
+                                <option v-for="department in DepartmentList" :key="department.id" :value="department.id">{{department.name}}</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="text-center">
+                            <button type="button" class="btn btn-success" v-show="IsShow" @@click="Create">Save</button>
+                            <button type="button" class="btn btn-primary" @@click="Update" v-show="!IsShow">Update</button>
+                            <button type="button" class="btn btn-danger" @@click="Cancel" v-show="IsShowCancel">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="ValidationMessage" v-show="isMassage">
+                <div class="alert" role="alert" v-bind:class="[ClassStatus]">
+                    {{errorMassage}}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+
+                    <div class="float-left"> Audit List</div>
+                    <div class="float-right ">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="basic-addon2"> <i class="fas fa-search"></i> </span>
+                            </div>
+                            <input type="search" v-model="search" class="form-control" placeholder="Search By Name" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">SL</th>
+                                <th scope="col">Audit Name </th>
+                                <th scope="col">Department</th>
+                                <th scope="col"> Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(data, index) in filteredAuditList">
+                                <td>{{index+1}}</td>
+                                <td> {{data.name}} </td>
+                                <td> {{data.departmentName}} </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm" @@click="Delete(data.name, data.id)">Delete</button>
+                                    <button type="button" class="btn btn-info btn-sm" @@click="Edit(data.id)">Edit</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section AuditJs{
+
+    <script src="~/Vue-Controllers/Audit.js"></script>
+}
+
+
+
